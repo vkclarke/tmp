@@ -1,2 +1,1 @@
-# tmp
-/tmp
+basically just a test repo for anything I don't feel is worth its own repo yet. anything here will be in varying degrees of completeness. don't expect it to be usable, but as usual it's all unlicensed so go nuts.
