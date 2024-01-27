@@ -3,7 +3,7 @@
 package main
 
 import (
-	"io"
+	"bytes"
 	"log"
 	"os"
 	"strings"
@@ -14,26 +14,19 @@ func main() {
 	args := os.Args[1:]
 	stderr := log.New(os.Stderr, "[errors] ", 0)
 
-	txt := func() string {
-		var load func() ([]byte, error)
-		switch {
-		case len(args) < 1:
-			load = func() ([]byte, error) {
-				return io.ReadAll(os.Stdin)
-			}
-		default:
-			load = func() ([]byte, error) {
-				return os.ReadFile(os.Args[1])
-			}
+	input := bytes.NewBuffer(make([]byte, 0, os.Getpagesize()))
+	input.ReadFrom(func() *os.File {
+		if len(args) < 1 {
+			return os.Stdin
 		}
-		data, err := load()
+		f, err := os.Open(args[0])
 		if err != nil {
 			stderr.Fatalln(err)
 		}
-		return string(data)
-	}()
+		return f
+	}())
 
-	os.Stdout.WriteString(shrinkwrap(txt))
+	os.Stdout.WriteString(shrinkwrap(input.String()))
 }
 
 func shrinkwrap(src string) string {
