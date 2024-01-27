@@ -68,7 +68,6 @@ func iterString(txt string, size int) <-chan rune {
 }
 
 func isSpace(char rune) bool  { return unicode.IsSpace(char) }
-func isQuote(char rune) bool  { return char == '\'' || char == '"' || char == '`' }
 func isNumber(char rune) bool { return unicode.IsNumber(char) }
 func isLetter(char rune) bool { return unicode.IsLetter(char) }
 
