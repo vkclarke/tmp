@@ -11,4 +11,5 @@ func While[V any](in <-chan V, cond func() bool, action func(V) V) <-chan V {
 			out <- action(value)
 		}
 	}()
+	return out
 }
