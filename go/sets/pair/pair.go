@@ -10,8 +10,8 @@ type impl[A, B any] struct {
 	b B
 }
 
-func (self impl[A, B]) A() A { return self.A }
-func (self impl[A, B]) B() B { return self.B }
+func (self impl[A, B]) A() A { return self.a }
+func (self impl[A, B]) B() B { return self.b }
 
 func Of[A, B any](a A, b B) Interface[A, B] {
 	return impl[A, B]{a, b}
